@@ -1,0 +1,107 @@
+body, html {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.videoContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.backgroundVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+}
+
+.containerLogin {
+  position: relative;
+  display: grid;
+  justify-content: center;
+  height: 75dvh;
+  width: 80dvw;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+.containerLogin-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  margin: 20px 0 20px -150px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: 40dvw;
+}
+
+.container-title_iconBank {
+  height: 50px;
+  margin-right: 15px;
+}
+
+.containerLogin h1 {
+  margin-top: 15px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+}
+
+.containerLogin-form {
+  display: block;
+  justify-content: center;
+  height: 55dvh;
+  width: 75dvw;
+  background-color: transparent;
+  text-align: center;
+}
+
+.containerLogin-form_formAction {
+  height: 45dvh;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  padding-top: 45px;
+} 
+
+.containerLogin-form_formAction input{
+  background-color: transparent;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #000;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.containerLogin-form_formAction input::placeholder{
+  font-weight: normal;
+  color: white;
+}
+
+.containerLogin-form_formAction input:focus{
+  background: transparent;
+  outline: none;
+  border-bottom: 1px solid #000;
+  box-shadow: none;
+  color: white;
+}
