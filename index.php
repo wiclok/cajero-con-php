@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <!-- css -->
-  <link rel="stylesheet" href="./cajero.css">
+  <link rel="stylesheet" href="./index.css">
 
   <title>Document</title>
 </head>
@@ -17,47 +17,47 @@
 <body>
 
   <div class="videoContainer">
-    <video class="backgroundVideo" muted autoplay loop src="./public/assets/background.mp4"></video>
+    <video class="backgroundVideo" muted autoplay loop src="./public/assets/background3.mp4"></video>
   </div>
-
+  
   <?php
-  $message = '';
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['usuario']) && isset($_POST['contrasena'])) {
-      $usuario = trim(htmlspecialchars($_POST['usuario']));
-      $contrasena = trim(htmlspecialchars($_POST['contrasena']));
+session_start();
 
+$message = '';
+$autenticado = false;
 
-      // Leer el archivo JSON
-      $jsonFile = 'usuarios.json';
-      if (file_exists($jsonFile)) {
-        $jsonData = file_get_contents($jsonFile);
-        $usuarios = json_decode($jsonData, true);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (isset($_POST['usuario']) && isset($_POST['contrasena'])) {
+    $usuario = trim(htmlspecialchars($_POST['usuario']));
+    $contrasena = trim(htmlspecialchars($_POST['contrasena']));
 
-        // Verificar si el usuario existe
-        $autenticado = false;
+    $jsonFile = 'usuarios.json';
+    if (file_exists($jsonFile)) {
+      $jsonData = file_get_contents($jsonFile); 
+      $usuarios = json_decode($jsonData, true);
 
-        foreach ($usuarios as $user) {
-          if ($user['usuario'] === $usuario && $user['contrasena'] === $contrasena) {
-            $autenticado = true;
-            header("Location: cajero.php");
-          }
+      foreach ($usuarios as $user) {
+        if ($user['usuario'] === $usuario && $user['contrasena'] === $contrasena) {
+          $autenticado = true;
+
+          $_SESSION['user'] = $user;
+          $_SESSION['autenticado'] = $autenticado;
+
+          header("Location: cajero.php");
+          exit;
         }
-
-        if (!$autenticado) {
-          $message = 'Usuario o contraseña incorrectos';
-        } else {
-          $message = 'Usuario autenticado';
-        }
-      } else {
-        $message = 'El archivo de usuarios no existe.';
       }
-    } else {
-      $message = 'Por favor, complete todos los campos.';
-    }
-  }
 
-  ?>
+      $message = $autenticado ? 'Usuario autenticado' : 'Usuario o contraseña incorrectos';
+    } else {
+      $message = 'El archivo de usuarios no existe.';
+    }
+  } else {
+    $message = 'Por favor, complete todos los campos.';
+  }
+}
+?>
+
 
   <div class="containerLogin">
     <div class="containerLogin-title">
